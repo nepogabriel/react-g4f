@@ -7,6 +7,7 @@ import './index.css';
 export function News() {
     const [noticias, setNoticias] = useState([]);
     const [newNoticia, setNewNoticia] = useState({ titulo: '', descricao: '' });
+    const [editNoticia, setEditNoticia] = useState(null);
 
     async function buscarNoticias() {
         try {
@@ -24,6 +25,25 @@ export function News() {
             setNewNoticia({ titulo: '', descricao: '' });
         } catch (error) {
             console.error('Erro ao criar notícia:', error);
+        }
+    }
+
+    async function atualizarNoticia(id) {
+        try {
+            const response = await api_news.put(`/noticia/${id}`, editNoticia);
+            setNoticias(noticias.map(n => (n.id === id ? response.data : n)));
+            setEditNoticia(null);
+        } catch (error) {
+            console.error('Erro ao atualizar notícia:', error);
+        }
+    }
+
+    async function excluirNoticia(id) {
+        try {
+            await api_news.delete(`/noticia/${id}`);
+            setNoticias(noticias.filter(n => n.id !== id));
+        } catch (error) {
+            console.error('Erro ao excluir notícia:', error);
         }
     }
 
@@ -52,14 +72,33 @@ export function News() {
             </div>
 
             <ul>
-                {noticias.map((noticia, index) => (
-                    <li key={index}>
-                        <Link to={`/noticia/${noticia.id}`}>{noticia.titulo}</Link>
-                        <p>{noticia.descricao}</p>
+                {noticias.map(noticia => (
+                    <li key={noticia.id}>
+                        {editNoticia?.id === noticia.id ? (
+                            <div>
+                                <input
+                                    type="text"
+                                    value={editNoticia.titulo}
+                                    onChange={e => setEditNoticia({ ...editNoticia, titulo: e.target.value })}
+                                />
+                                <textarea
+                                    value={editNoticia.descricao}
+                                    onChange={e => setEditNoticia({ ...editNoticia, descricao: e.target.value })}
+                                />
+                                <button onClick={() => atualizarNoticia(noticia.id)}>Salvar</button>
+                                <button onClick={() => setEditNoticia(null)}>Cancelar</button>
+                            </div>
+                        ) : (
+                            <div>
+                                <h3>{noticia.titulo}</h3>
+                                <p>{noticia.descricao}</p>
+                                <button onClick={() => setEditNoticia(noticia)}>Editar</button>
+                                <button onClick={() => excluirNoticia(noticia.id)}>Excluir</button>
+                            </div>
+                        )}
                     </li>
                 ))}
             </ul>
-
         </>
     );
 } 
