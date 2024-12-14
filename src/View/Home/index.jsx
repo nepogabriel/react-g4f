@@ -2,63 +2,103 @@ import { useEffect, useState } from "react";
 import { api_viacep } from "../../api";
 import './index.css';
 
-const cep = 77015346;
-
-export function Home({count}) {
+export function Home() {
+    const [cep, setCep] = useState('');
     const [endereco, setEndereco] = useState({});
 
     async function buscarCep() {
-        const x = await api_viacep.get(`/${cep}/json/`);
+        if (cep.length === 8) {
+            const x = await api_viacep.get(`/${cep}/json/`);
 
-        setEndereco(x.data);
+            setEndereco(x.data);
+        }
     }
 
     useEffect(() => {
         buscarCep();
-    }, []);
+    }, [cep]);
 
     return (
         <>
-           {/* <h1>{count}</h1>
-
-            <div id="id-teste">{endereco.bairro}</div> */}
             <section className="page-address">
-                <h1 class="title-address">Endereço</h1>
+                <h1 className="title-address">Endereço</h1>
 
-                <form action="" method="post" class="form-address">
-                    <div class="form-field">
-                        <label for="cep" class="form-label">CEP:</label>
-                        <input type="text" id="cep" name="cep" class="form-input" maxlength="9" />
+                <form action="" method="post" className="form-address">
+                    <div className="form-field">
+                        <label htmlFor="cep" className="form-label">CEP:</label>
+                        <input
+                            type="text"
+                            id="cep"
+                            name="cep"
+                            className="form-input"
+                            maxLength="9"
+                            value={cep}
+                            onChange={(e) => setCep(e.target.value)}
+                            />
                     </div>
 
-                    <div class="form-field">
-                        <label for="logradouro" class="form-label">Logradouro:</label>
-                        <input type="text" id="logradouro" name="logradouro" class="form-input" />
+                    <div className="form-field">
+                        <label htmlFor="logradouro" className="form-label">Logradouro:</label>
+                        <input
+                            type="text"
+                            id="logradouro"
+                            name="logradouro"
+                            className="form-input"
+                            readOnly
+                            value={endereco.logradouro || ''}
+                            />
                     </div>
 
-                    <div class="form-field">
-                        <label for="bairro" class="form-label">Bairro:</label>
-                        <input type="text" id="bairro" name="bairro" class="form-input" />
+                    <div className="form-field">
+                        <label htmlFor="bairro" className="form-label">Bairro:</label>
+                        <input
+                            type="text"
+                            id="bairro"
+                            name="bairro"
+                            className="form-input"
+                            readOnly
+                            value={endereco.bairro || ''}
+                            />
                     </div>
 
-                    <div class="form-field">
-                        <label for="cidade" class="form-label">Cidade:</label>
-                        <input type="text" id="cidade" name="cidade" class="form-input" />
+                    <div className="form-field">
+                        <label htmlFor="cidade" className="form-label">Cidade:</label>
+                        <input 
+                            type="text"
+                            id="cidade"
+                            name="cidade"
+                            className="form-input"
+                            readOnly
+                            value={endereco.localidade || ''}
+                            />
                     </div>
 
-                    <div class="form-field">
-                        <label for="uf" class="form-label">UF:</label>
-                        <input type="text" id="uf" name="uf" class="form-input" maxlength="2" />
+                    <div className="form-field">
+                        <label htmlFor="uf" className="form-label">UF:</label>
+                        <input
+                            type="text"
+                            id="uf"
+                            name="uf"
+                            className="form-input"
+                            maxLength="2" 
+                            readOnly
+                            value={endereco.uf || ''}
+                            />
                     </div>
 
-                    <div class="form-field">
-                        <label for="estado" class="form-label">Estado:</label>
-                        <input type="text" id="estado" name="estado" class="form-input" />
+                    <div className="form-field">
+                        <label htmlFor="estado" className="form-label">Estado:</label>
+                        <input
+                            type="text"
+                            id="estado"
+                            name="estado"
+                            className="form-input"
+                            readOnly
+                            value={endereco.estado || ''}
+                            />
                     </div>
-
-                    <button type="submit" class="form-button">Cadastrar</button>
                 </form>
             </section>
         </>
-    )
+    );
 } 
