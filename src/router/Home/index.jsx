@@ -4,7 +4,8 @@ import './index.css';
 export function Home() {
     return (
         <>
-            <Link to="/address" className="btn-home">Address</Link>
+            <Link to="/address" className="btn-home">Buscar Endereço</Link>
+            <Link to="/news" className="btn-home">Administrar Notícias</Link>
         </>
     );
 } 
