@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { api_viacep } from "../../api";
 import './index.css';
 
-export function Home() {
+export function Address() {
     const [cep, setCep] = useState('');
     const [endereco, setEndereco] = useState({});
 
@@ -21,9 +21,16 @@ export function Home() {
     return (
         <>
             <section className="page-address">
-                <h1 className="title-address">Endereço</h1>
+                
 
                 <form action="" method="post" className="form-address">
+                    <h1 className="title-address">Endereço</h1>
+
+                    <div className="form-warning">
+                        <i className="fa fa-exclamation-triangle" aria-hidden="true"></i>&nbsp;
+                        Preencha o campo CEP para buscar o endereço.
+                    </div>
+
                     <div className="form-field">
                         <label htmlFor="cep" className="form-label">CEP:</label>
                         <input
