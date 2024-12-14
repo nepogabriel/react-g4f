@@ -1,10 +1,10 @@
+import { Outlet } from 'react-router-dom'
 import './App.css'
-import { Address } from './router/Address'
 
 function App() {
   return (
     <>
-      <Address />
+      <Outlet />
     </>
   )
 }
