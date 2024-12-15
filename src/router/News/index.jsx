@@ -53,52 +53,65 @@ export function News() {
 
     return (
         <>
-            <h1>NEWS</h1>
+        <section className="page-news">
+            <h1 className="title-news">Notícias</h1>
             
-            <div>
-                <h2>Criar Nova Notícia</h2>
+            <div className="container-form-news">
+                <h3>Criar Nova Notícia</h3>
+                
                 <input
+                    className="form-input"
                     type="text"
                     placeholder="Título"
                     value={newNoticia.titulo}
                     onChange={e => setNewNoticia({ ...newNoticia, titulo: e.target.value })}
                 />
+
                 <textarea
-                    placeholder="descricao"
+                    className="form-textarea"
+                    placeholder="Descrição"
                     value={newNoticia.descricao}
                     onChange={e => setNewNoticia({ ...newNoticia, descricao: e.target.value })}
                 />
-                <button onClick={criarNoticia}>Criar</button>
+
+                <button className="form-button" onClick={criarNoticia}>Cadastrar Notícia</button>
             </div>
 
-            <ul>
+            <div className="container-news">
                 {noticias.map(noticia => (
-                    <li key={noticia.id}>
+                    <div className="news" key={noticia.id}>
                         {editNoticia?.id === noticia.id ? (
-                            <div>
+                            <div className="form-edit-news">
                                 <input
+                                    className="form-input"
                                     type="text"
                                     value={editNoticia.titulo}
                                     onChange={e => setEditNoticia({ ...editNoticia, titulo: e.target.value })}
                                 />
+
                                 <textarea
+                                    className="form-textarea"
                                     value={editNoticia.descricao}
                                     onChange={e => setEditNoticia({ ...editNoticia, descricao: e.target.value })}
                                 />
-                                <button onClick={() => atualizarNoticia(noticia.id)}>Salvar</button>
-                                <button onClick={() => setEditNoticia(null)}>Cancelar</button>
+
+                                <div className="container-button-edit">
+                                    <button className="button-edit-save" onClick={() => atualizarNoticia(noticia.id)}>Salvar</button>
+                                    <button className="button-edit-cancel" onClick={() => setEditNoticia(null)}>Cancelar</button>
+                                </div>
                             </div>
                         ) : (
                             <div>
                                 <h3>{noticia.titulo}</h3>
                                 <p>{noticia.descricao}</p>
-                                <button onClick={() => setEditNoticia(noticia)}>Editar</button>
-                                <button onClick={() => excluirNoticia(noticia.id)}>Excluir</button>
+                                <button className="button-edit-news" onClick={() => setEditNoticia(noticia)}><i className="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                                <button className="button-delete-news" onClick={() => excluirNoticia(noticia.id)}><i className="fa fa-trash-o" aria-hidden="true"></i></button>
                             </div>
                         )}
-                    </li>
+                    </div>
                 ))}
-            </ul>
+            </div>
+        </section>
         </>
     );
 } 
