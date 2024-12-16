@@ -1,8 +1,48 @@
-# React + Vite
+<h1 align="center">
+CRUD React.js 
+</h1>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Sobre
+Consumindo CRUD via API utilizando React.js, Axios, React Router e Json-Server.
 
-Currently, two official plugins are available:
+O projeto se comunica com suas APIs:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 1- ViaCep (Buscar endereço)
+- 2- CRUD de notícias (json-server) (Administrar notícias)
+
+Os diretórios/arquivos mais importantes são:
+
+- main.jsx (Configuração de rotas está nesse arquivo);
+- App.jsx (Arquivo responsável por redenrizar as demais páginas)
+- Views/* (Páginas da aplicação)
+- api/index.ts (baseURL das APIs utilizadas)
+
+# Rodando projeto
+## Pré-requisitos
+- Git
+- Docker
+
+## Passo a Passo
+- 1- Clonar
+```URL
+https://github.com/nepogabriel/react-g4f.git
+```
+- 2- Entrar na pasta
+```
+cd react-g4f
+```
+
+- 3- Construir imagem
+```
+docker build -t react-json-server .
+```
+
+- 4- Executar imagem
+```
+docker run -it -p 5175:5173 -p 3000:3000 react-json-server
+```
+
+- 5- Link
+```URL
+http://localhost:5175/
+```
