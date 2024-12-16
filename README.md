@@ -22,6 +22,10 @@ Os diretórios/arquivos mais importantes são:
 - Git
 - Docker
 
+## Portas necessárias
+- Porta 5175
+- Porta 3000
+
 ## Passo a Passo
 - 1- Clonar
 ```URL
@@ -42,7 +46,13 @@ docker build -t react-json-server .
 docker run -it -p 5175:5173 -p 3000:3000 react-json-server
 ```
 
-- 5- Link
+- 5- Links de acesso
+- React:
+```URL
+http://localhost:5175/
+```
+
+- Json-Server:
 ```URL
 http://localhost:5175/
 ```
